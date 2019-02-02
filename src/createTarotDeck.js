@@ -1,81 +1,134 @@
-const majors = [
-  "The Fool",
-  "The Magician",
-  "The High Priestess",
-  "The Empress",
-  "The Emperor",
-  "The Hierophant",
-  "The Lovers",
-  "The Chariot",
-  "Justice",
-  "The Hermit",
-  "Wheel of Fortune",
-  "Strength",
-  "The Hanged Man",
-  "Death",
-  "Temperance",
-  "The Devil",
-  "The Tower",
-  "The Star",
-  "The Moon",
-  "The Sun",
-  "Judgement",
-  "The World"
-];
+// class SearchSelect extends Component {
+//   state = {
+//     options: tarotDeck
+//   };
 
-const suits = ["Wands", "Swords", "Cups", "Pentacles"];
-const courts = {
-  1: "Ace",
-  11: "Page",
-  12: "Knight",
-  13: "Queen",
-  14: "King"
-};
-const createMajors = () => {
-  return majors.map((value, index) => {
-    return {
-      key: value,
-      major: true,
-      number: index,
-      value: value,
-      deck: null,
-      image: null,
-      text: value
-    };
-  });
-};
+// componentDidMount() {
+//   axios
+//     .get("/tarotDeck.json")
+//     .then(response => {
+//       Object.keys(response.data).forEach(element => {
+//         let options = response.data[element].tarotDeck.map(element => {
+//           console.log(JSON.stringify(element));
+//           return {
+//             key: element.key,
+//             value: element.key,
+//             text: element.text
+//           };
+//         });
+//         this.setState({ options: options }, () => console.log(this.state));
+//       });
+//     })
+//     .catch(error => {
+//       console.log(error);
+//     });
+// }
 
-const createMinors = () => {
-  const minors = [];
-  for (let i = 0; i < suits.length; i++) {
-    for (let j = 1; j <= 14; j++) {
-      let name = courts.hasOwnProperty(j)
-        ? `${courts[j]} of ${suits[i]}`
-        : `${j} of ${suits[i]}`;
+// createMajors = majors => {
+//   return majors.map((value, index) => {
+//     return {
+//       key: value,
+//       major: true,
+//       number: index,
+//       value: value,
+//       deck: null,
+//       image: null,
+//       text: value
+//     };
+//   });
+// };
 
-      minors.push({
-        key: name,
-        major: false,
-        number: j,
-        value: suits[i],
-        deck: null,
-        image: null,
-        text: name
-      });
-    }
-  }
+// createMinors = (suits, courts) => {
+//   const minors = [];
+//   for (let i = 0; i < suits.length; i++) {
+//     for (let j = 1; j <= 14; j++) {
+//       let name = courts.hasOwnProperty(j)
+//         ? `${courts[j]} of ${suits[i]}`
+//         : `${j} of ${suits[i]}`;
 
-  return minors;
-};
+//       minors.push({
+//         key: name,
+//         major: false,
+//         number: j,
+//         value: suits[i],
+//         deck: null,
+//         image: null,
+//         text: name
+//       });
+//     }
+//   }
 
-const tarotDeck = createMajors();
-const minorArcana = createMinors();
-minorArcana.forEach(element => tarotDeck.push(element));
+//   return minors;
+// };
 
-const submitHandler = () => {
-  Axios.post("/tarotDeck.json", tarotDeck)
-    .then(response => console.log(response))
-    .catch(error => console.log(error));
-};
+// submitHandler = (tarotDeck, minorArcana) => {
+//   minorArcana.forEach(element => tarotDeck.push(element));
+//   axios
+//     .post("/tarotDeck.json", { tarotDeck: tarotDeck })
+//     .then(response => console.log(response))
+//     .catch(error => console.log(error));
+// };
 
-submitHandler();
+// render() {
+//   let majors = [
+//     "The Fool",
+//     "The Magician",
+//     "The High Priestess",
+//     "The Empress",
+//     "The Emperor",
+//     "The Hierophant",
+//     "The Lovers",
+//     "The Chariot",
+//     "Justice",
+//     "The Hermit",
+//     "Wheel of Fortune",
+//     "Strength",
+//     "The Hanged Man",
+//     "Death",
+//     "Temperance",
+//     "The Devil",
+//     "The Tower",
+//     "The Star",
+//     "The Moon",
+//     "The Sun",
+//     "Judgement",
+//     "The World"
+//   ];
+
+//   let suits = ["Wands", "Swords", "Cups", "Pentacles"];
+//   let courts = {
+//     1: "Ace",
+//     11: "Page",
+//     12: "Knight",
+//     13: "Queen",
+//     14: "King"
+//   };
+
+//   let tarotDeck = this.createMajors(majors);
+//   let minorArcana = this.createMinors(suits, courts);
+//   this.submitHandler(tarotDeck, minorArcana);
+
+//     let options = this.state.options.map(element => {
+//       return {
+//         key: element.key,
+//         value: element.key,
+//         text: element.text
+//       };
+//     });
+
+//     return (
+//       <div>
+//         <Dropdown
+//           className={styles.SearchSelect}
+//           placeholder="Select Card"
+//           search
+//           selection
+//           options={options}
+//           onChange={(event, selected) => this.props.changed(event, selected)}
+//         />
+//       </div>
+//     );
+//   }
+// }
+
+// export default SearchSelect;
