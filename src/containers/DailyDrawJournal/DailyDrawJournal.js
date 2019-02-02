@@ -7,6 +7,7 @@ import Textarea from "../../components/Form/Textarea/textarea";
 import styles from "./DailyDrawJournal.module.css";
 import SearchSelect from "../../components/Form/SearchSelect/SearchSelect";
 import Axios from "../../axios-dailyDraw";
+import tarotDeck from "../../data/TarotDeck/tarotDeck.json";
 
 class DailyDrawJournal extends Component {
   state = {
@@ -14,7 +15,7 @@ class DailyDrawJournal extends Component {
     question: "",
     mood: "",
     moon: "",
-    numerology: null,
+    numerology: 0,
     tarotCard: null,
     journalEntry: ""
   };
@@ -30,8 +31,9 @@ class DailyDrawJournal extends Component {
 
   cardSelectedHandler = (_, selectedValue) => {
     const value = selectedValue.value;
+    const number = tarotDeck.filter(card => card.key === value)[0].number;
 
-    this.setState({ tarotCard: value }, () => {
+    this.setState({ tarotCard: value, numerology: number }, () => {
       console.log(this.state);
     });
   };
@@ -73,11 +75,15 @@ class DailyDrawJournal extends Component {
           <Input
             controlId="numerology"
             label="Numerology"
+            value={this.state.numerology}
             changed={this.inputHander}
           />
 
           <TarotCard name={this.state.tarotCard} />
-          <SearchSelect changed={this.cardSelectedHandler} />
+          <SearchSelect
+            changed={this.cardSelectedHandler}
+            options={tarotDeck}
+          />
 
           <Textarea
             controlId="journalEntry"

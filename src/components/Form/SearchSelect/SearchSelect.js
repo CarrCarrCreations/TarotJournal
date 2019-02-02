@@ -1,11 +1,10 @@
 import { Dropdown } from "semantic-ui-react";
 import styles from "./SearchSelect.module.css";
-import tarotDeck from "../../../data/tarotDeck.json";
 
 import React from "react";
 
 const SearchSelect = props => {
-  let options = tarotDeck.map(element => {
+  let options = props.options.map(element => {
     return {
       key: element.key,
       value: element.key,
