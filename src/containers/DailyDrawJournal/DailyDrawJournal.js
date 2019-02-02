@@ -13,7 +13,7 @@ class DailyDrawJournal extends Component {
     question: "",
     mood: "",
     moon: "",
-    numerology: 0,
+    numerology: null,
     tarotCard: null,
     journalEntry: ""
   };
