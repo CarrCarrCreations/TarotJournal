@@ -4,6 +4,8 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Input from "../../components/Form/Input/Input";
 import Textarea from "../../components/Form/Textarea/textarea";
+import styles from "./DailyDrawJournal.module.css";
+import SearchSelect from "../../components/Form/SearchSelect/SearchSelect";
 
 class DailyDrawJournal extends Component {
   state = {
@@ -25,11 +27,18 @@ class DailyDrawJournal extends Component {
     });
   };
 
+  cardSelectedHandler = (_, selectedValue) => {
+    const value = selectedValue.value;
+
+    this.setState({ tarotCard: value }, () => {
+      console.log(this.state);
+    });
+  };
+
   render() {
     const currentDate = this.state.date.toJSON().slice(0, 10);
 
     return (
-      // convert tarot card input to searchable dropdown
       <div>
         <Form>
           <Input
@@ -45,7 +54,7 @@ class DailyDrawJournal extends Component {
           />
           <Input
             controlId="mood"
-            label="mood"
+            label="Mood"
             placeholder="Current Mood"
             changed={this.inputHander}
           />
@@ -59,28 +68,19 @@ class DailyDrawJournal extends Component {
             label="Numerology"
             changed={this.inputHander}
           />
-          <Input
-            controlId="tarotCard"
-            label="Tarot Card"
-            changed={this.inputHander}
-          />
 
-          <TarotCard name="Ace of Wands" />
-          <Button variant="primary" type="submit">
-            Select
-          </Button>
-          <Button variant="primary" type="submit">
-            Upload
-          </Button>
+          <TarotCard name={this.state.tarotCard} />
+          <SearchSelect changed={this.cardSelectedHandler} />
 
           <Textarea
             controlId="journalEntry"
             label="Journal Entry"
             as="textarea"
             rows="3"
+            changed={this.inputHander}
           />
 
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" className={styles.Button}>
             Submit
           </Button>
         </Form>

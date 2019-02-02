@@ -1,0 +1,7 @@
+.TarotCard {
+    margin: 15px 60px;
+    border: 2px solid black;
+    width: 75px;
+    height: 115px;
+    text-align: center
+}
