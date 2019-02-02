@@ -6,6 +6,7 @@ import Input from "../../components/Form/Input/Input";
 import Textarea from "../../components/Form/Textarea/textarea";
 import styles from "./DailyDrawJournal.module.css";
 import SearchSelect from "../../components/Form/SearchSelect/SearchSelect";
+import Axios from "../../axios-dailyDraw";
 
 class DailyDrawJournal extends Component {
   state = {
@@ -33,6 +34,12 @@ class DailyDrawJournal extends Component {
     this.setState({ tarotCard: value }, () => {
       console.log(this.state);
     });
+  };
+
+  submitHandler = () => {
+    Axios.post("/dailyDraw.json", this.state)
+      .then(response => console.log(response))
+      .catch(error => console.log(error));
   };
 
   render() {
@@ -80,7 +87,12 @@ class DailyDrawJournal extends Component {
             changed={this.inputHander}
           />
 
-          <Button variant="primary" type="submit" className={styles.Button}>
+          <Button
+            variant="primary"
+            type="submit"
+            className={styles.Button}
+            onClick={this.submitHandler}
+          >
             Submit
           </Button>
         </Form>
