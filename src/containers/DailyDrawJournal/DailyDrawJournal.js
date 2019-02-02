@@ -11,31 +11,50 @@ import tarotDeck from "../../data/TarotDeck/tarotDeck.json";
 
 class DailyDrawJournal extends Component {
   state = {
-    date: new Date(),
-    question: "",
-    mood: "",
-    moon: "",
-    numerology: 0,
-    tarotCard: null,
-    journalEntry: ""
+    dailyDraw: {
+      date: new Date(),
+      question: "",
+      mood: "",
+      moon: "",
+      numerology: 0,
+      tarotCard: "",
+      journalEntry: ""
+    }
   };
 
   inputHander = event => {
     const key = event.target.id;
     const value = event.target.value;
 
-    this.setState({ [key]: value }, () => {
-      console.log(this.state);
-    });
+    this.setState(
+      prevState => ({
+        dailyDraw: {
+          ...prevState.dailyDraw,
+          [key]: value
+        }
+      }),
+      () => {
+        console.log(this.state);
+      }
+    );
   };
 
   cardSelectedHandler = (_, selectedValue) => {
     const value = selectedValue.value;
     const number = tarotDeck.filter(card => card.key === value)[0].number;
 
-    this.setState({ tarotCard: value, numerology: number }, () => {
-      console.log(this.state);
-    });
+    this.setState(
+      prevState => ({
+        dailyDraw: {
+          ...prevState.dailyDraw,
+          tarotCard: value,
+          numerology: number
+        }
+      }),
+      () => {
+        console.log(this.state);
+      }
+    );
   };
 
   submitHandler = () => {
@@ -45,7 +64,7 @@ class DailyDrawJournal extends Component {
   };
 
   render() {
-    const currentDate = this.state.date.toJSON().slice(0, 10);
+    const currentDate = this.state.dailyDraw.date.toJSON().slice(0, 10);
 
     return (
       <div>
@@ -75,7 +94,7 @@ class DailyDrawJournal extends Component {
           <Input
             controlId="numerology"
             label="Numerology"
-            value={this.state.numerology}
+            value={this.state.dailyDraw.numerology}
             changed={this.inputHander}
           />
 
