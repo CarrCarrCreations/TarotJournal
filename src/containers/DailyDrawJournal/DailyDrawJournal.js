@@ -8,6 +8,7 @@ import styles from "./DailyDrawJournal.module.css";
 import SearchSelect from "../../components/Form/SearchSelect/SearchSelect";
 import Axios from "../../axios-dailyDraw";
 import tarotDeck from "../../data/TarotDeck/tarotDeck.json";
+import moonPhaseData from "../../data/Moon/moonData2019.json";
 
 class DailyDrawJournal extends Component {
   state = {
@@ -21,6 +22,10 @@ class DailyDrawJournal extends Component {
       journalEntry: ""
     }
   };
+
+  componentDidMount() {
+    this.calculateMoonPhase();
+  }
 
   inputHander = event => {
     const key = event.target.id;
@@ -41,7 +46,7 @@ class DailyDrawJournal extends Component {
 
   cardSelectedHandler = (_, selectedValue) => {
     const value = selectedValue.value;
-    const number = tarotDeck.filter(card => card.key === value)[0].number;
+    const number = tarotDeck.find(card => card.key === value).number;
 
     this.setState(
       prevState => ({
@@ -58,9 +63,47 @@ class DailyDrawJournal extends Component {
   };
 
   submitHandler = () => {
-    Axios.post("/dailyDraw.json", this.state)
+    Axios.post("/dailyDraw.json", this.state.dailyDraw)
       .then(response => console.log(response))
       .catch(error => console.log(error));
+  };
+
+  updateMoonPhaseHandler = (moonData, i) => {
+    this.setState(prevState => ({
+      dailyDraw: {
+        ...prevState.dailyDraw,
+        moon: moonData[i].phase
+      }
+    }));
+  };
+
+  calculateMoonPhase = () => {
+    const moonData = moonPhaseData.phasedata;
+
+    for (let i = 0; i + 1 < moonData.length; i++) {
+      const currDate = this.state.dailyDraw.date;
+
+      const minPhase = new Date(moonData[i].date);
+      const maxPhase = new Date(moonData[i + 1].date);
+
+      console.log(currDate.getDate() === minPhase.getDate());
+      console.log(currDate > minPhase && currDate < maxPhase);
+      console.log(currDate.getDate() === maxPhase.getDate());
+
+      if (currDate.getDate() === minPhase.getDate()) {
+        this.updateMoonPhaseHandler(moonData, i);
+        break;
+      } else if (currDate > minPhase && currDate < maxPhase) {
+        console.log("Match!");
+        this.updateMoonPhaseHandler(moonData, i);
+        break;
+      } else if (currDate.getDate() === maxPhase.getDate()) {
+        this.updateMoonPhaseHandler(moonData, i);
+        break;
+      } else {
+        console.log("No Match");
+      }
+    }
   };
 
   render() {
@@ -89,6 +132,7 @@ class DailyDrawJournal extends Component {
           <Input
             controlId="moon"
             label="Moon Phase"
+            value={this.state.dailyDraw.moon}
             changed={this.inputHander}
           />
           <Input
