@@ -4,14 +4,6 @@ import styles from "./SearchSelect.module.css";
 import React from "react";
 
 const SearchSelect = props => {
-  let options = props.options.map(element => {
-    return {
-      key: element.key,
-      value: element.key,
-      text: element.text
-    };
-  });
-
   return (
     <div>
       <Dropdown
@@ -19,7 +11,8 @@ const SearchSelect = props => {
         placeholder="Select Card"
         search
         selection
-        options={options}
+        options={props.options}
+        value={props.value}
         onChange={(event, selected) => props.changed(event, selected)}
       />
     </div>

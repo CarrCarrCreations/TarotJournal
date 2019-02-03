@@ -20,11 +20,16 @@ class DailyDrawJournal extends Component {
       numerology: 0,
       tarotCard: "",
       journalEntry: ""
-    }
+    },
+    tarotCardOptions: [],
+    moonPhaseOptions: [],
+    moonPhases: ["New Moon", "First Quarter", "Full Moon", "Last Quarter"]
   };
 
   componentDidMount() {
     this.calculateMoonPhase();
+    this.calculateMoonPhaseOptions();
+    this.calculateTarotCardOptions();
   }
 
   inputHander = event => {
@@ -36,6 +41,22 @@ class DailyDrawJournal extends Component {
         dailyDraw: {
           ...prevState.dailyDraw,
           [key]: value
+        }
+      }),
+      () => {
+        console.log(this.state);
+      }
+    );
+  };
+
+  moonPhaseHandler = (_, selectedValue) => {
+    const value = selectedValue.value;
+
+    this.setState(
+      prevState => ({
+        dailyDraw: {
+          ...prevState.dailyDraw,
+          moon: value
         }
       }),
       () => {
@@ -82,28 +103,45 @@ class DailyDrawJournal extends Component {
 
     for (let i = 0; i + 1 < moonData.length; i++) {
       const currDate = this.state.dailyDraw.date;
-
       const minPhase = new Date(moonData[i].date);
       const maxPhase = new Date(moonData[i + 1].date);
-
-      console.log(currDate.getDate() === minPhase.getDate());
-      console.log(currDate > minPhase && currDate < maxPhase);
-      console.log(currDate.getDate() === maxPhase.getDate());
 
       if (currDate.getDate() === minPhase.getDate()) {
         this.updateMoonPhaseHandler(moonData, i);
         break;
       } else if (currDate > minPhase && currDate < maxPhase) {
-        console.log("Match!");
         this.updateMoonPhaseHandler(moonData, i);
         break;
       } else if (currDate.getDate() === maxPhase.getDate()) {
         this.updateMoonPhaseHandler(moonData, i);
         break;
       } else {
-        console.log("No Match");
       }
     }
+  };
+
+  calculateMoonPhaseOptions = () => {
+    let options = this.state.moonPhases.map(phase => {
+      return {
+        key: phase,
+        value: phase,
+        text: phase
+      };
+    });
+
+    this.setState({ moonPhaseOptions: options });
+  };
+
+  calculateTarotCardOptions = () => {
+    let options = tarotDeck.map(element => {
+      return {
+        key: element.key,
+        value: element.key,
+        text: element.text
+      };
+    });
+
+    this.setState({ tarotCardOptions: options });
   };
 
   render() {
@@ -129,11 +167,10 @@ class DailyDrawJournal extends Component {
             placeholder="Current Mood"
             changed={this.inputHander}
           />
-          <Input
-            controlId="moon"
-            label="Moon Phase"
+          <SearchSelect
+            changed={this.moonPhaseHandler}
             value={this.state.dailyDraw.moon}
-            changed={this.inputHander}
+            options={this.state.moonPhaseOptions}
           />
           <Input
             controlId="numerology"
@@ -141,13 +178,11 @@ class DailyDrawJournal extends Component {
             value={this.state.dailyDraw.numerology}
             changed={this.inputHander}
           />
-
-          <TarotCard name={this.state.tarotCard} />
+          <TarotCard name={this.state.dailyDraw.tarotCard} />
           <SearchSelect
             changed={this.cardSelectedHandler}
-            options={tarotDeck}
+            options={this.state.tarotCardOptions}
           />
-
           <Textarea
             controlId="journalEntry"
             label="Journal Entry"
@@ -155,7 +190,6 @@ class DailyDrawJournal extends Component {
             rows="3"
             changed={this.inputHander}
           />
-
           <Button
             variant="primary"
             type="submit"
