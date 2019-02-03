@@ -168,6 +168,7 @@ class DailyDrawJournal extends Component {
             changed={this.inputHander}
           />
           <SearchSelect
+            label="Moon Phase"
             changed={this.moonPhaseHandler}
             value={this.state.dailyDraw.moon}
             options={this.state.moonPhaseOptions}
@@ -180,6 +181,7 @@ class DailyDrawJournal extends Component {
           />
           <TarotCard name={this.state.dailyDraw.tarotCard} />
           <SearchSelect
+            label="Tarot Card"
             changed={this.cardSelectedHandler}
             options={this.state.tarotCardOptions}
           />

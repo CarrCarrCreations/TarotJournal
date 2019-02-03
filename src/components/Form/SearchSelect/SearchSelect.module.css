@@ -1,3 +1,7 @@
 .SearchSelect {
-    margin: 5px 10px;
+  margin: 5px;
+}
+
+.Label {
+  margin: 0 10px;
 }

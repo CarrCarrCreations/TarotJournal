@@ -6,6 +6,7 @@ import React from "react";
 const SearchSelect = props => {
   return (
     <div>
+      <label className={styles.Label}>{props.label}</label>
       <Dropdown
         className={styles.SearchSelect}
         placeholder="Select Card"
