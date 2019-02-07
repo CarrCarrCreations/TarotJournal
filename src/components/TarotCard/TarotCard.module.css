@@ -1,11 +1,11 @@
 .TarotCard {
-    margin: 15px 60px;
-    border: 2px solid black;
-    width: 90px;
-    height: 130px;
-    text-align: center;
+  margin: 15px 60px;
+  border: 2px solid black;
+  width: 175px;
+  height: 300px;
+  text-align: center;
 }
 
 .TarotCard p {
-    margin-top: 35px;
+  margin-top: 35px;
 }

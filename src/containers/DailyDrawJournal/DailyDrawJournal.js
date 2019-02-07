@@ -67,13 +67,14 @@ class DailyDrawJournal extends Component {
 
   cardSelectedHandler = (_, selectedValue) => {
     const value = selectedValue.value;
+    const card = tarotDeck.find(card => card.text === value);
     const number = tarotDeck.find(card => card.key === value).number;
 
     this.setState(
       prevState => ({
         dailyDraw: {
           ...prevState.dailyDraw,
-          tarotCard: value,
+          tarotCard: card,
           numerology: number
         }
       }),
@@ -83,7 +84,8 @@ class DailyDrawJournal extends Component {
     );
   };
 
-  submitHandler = () => {
+  submitHandler = event => {
+    event.preventDefault();
     Axios.post("/dailyDraw.json", this.state.dailyDraw)
       .then(response => console.log(response))
       .catch(error => console.log(error));
@@ -149,7 +151,7 @@ class DailyDrawJournal extends Component {
 
     return (
       <div>
-        <Form>
+        <Form onSubmit={this.submitHandler}>
           <Input
             controlId="date"
             label="Date"
@@ -179,7 +181,7 @@ class DailyDrawJournal extends Component {
             value={this.state.dailyDraw.numerology}
             changed={this.inputHander}
           />
-          <TarotCard name={this.state.dailyDraw.tarotCard} />
+          <TarotCard card={this.state.dailyDraw.tarotCard} />
           <SearchSelect
             label="Tarot Card"
             changed={this.cardSelectedHandler}
@@ -192,12 +194,7 @@ class DailyDrawJournal extends Component {
             rows="3"
             changed={this.inputHander}
           />
-          <Button
-            variant="primary"
-            type="submit"
-            className={styles.Button}
-            onClick={this.submitHandler}
-          >
+          <Button variant="primary" type="submit" className={styles.Button}>
             Submit
           </Button>
         </Form>
