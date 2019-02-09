@@ -174,7 +174,7 @@ class DailyDrawJournal extends Component {
         }
       }),
       () => {
-        console.log(this.state);
+        console.log("handle date change " + this.state.dailyDraw.date);
       }
     );
   };
