@@ -87,7 +87,7 @@ class DailyDrawJournal extends Component {
         }
       }),
       () => {
-        console.log("card selected handler" + this.state);
+        console.log("card selected handler " + this.state);
       }
     );
   };
@@ -180,6 +180,10 @@ class DailyDrawJournal extends Component {
   };
 
   render() {
+    let tarotCard = null;
+    if (this.state.dailyDraw.tarotCard !== "")
+      tarotCard = <TarotCard card={this.state.dailyDraw.tarotCard} />;
+
     return (
       <div>
         <Form onSubmit={this.submitHandler}>
@@ -213,7 +217,7 @@ class DailyDrawJournal extends Component {
             value={this.state.dailyDraw.numerology}
             changed={this.inputHander}
           />
-          <TarotCard card={this.state.dailyDraw.tarotCard} />
+          {tarotCard}
           <SearchSelect
             label="Tarot Card"
             changed={this.cardSelectedHandler}
