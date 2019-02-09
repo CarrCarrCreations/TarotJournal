@@ -9,6 +9,8 @@ import SearchSelect from "../../components/Form/SearchSelect/SearchSelect";
 import Axios from "../../axios-dailyDraw";
 import tarotDeck from "../../data/TarotDeck/tarotDeck.json";
 import moonPhaseData from "../../data/Moon/moonData2019.json";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 class DailyDrawJournal extends Component {
   state = {
@@ -146,18 +148,28 @@ class DailyDrawJournal extends Component {
     this.setState({ tarotCardOptions: options });
   };
 
+  handleDateChange = date => {
+    this.setState(prevState => ({
+      dailyDraw: {
+        ...prevState.dailyDraw,
+        date: date
+      }
+    }));
+  };
+
   render() {
     const currentDate = this.state.dailyDraw.date.toJSON().slice(0, 10);
 
     return (
       <div>
         <Form onSubmit={this.submitHandler}>
-          <Input
-            controlId="date"
-            label="Date"
-            value={currentDate}
-            changed={this.inputHander}
+          <Form.Label className={styles.Label}>Date</Form.Label>
+          <DatePicker
+            className={styles.DatePicker}
+            selected={this.state.dailyDraw.date}
+            onChange={this.handleDateChange}
           />
+
           <Input
             controlId="question"
             label="Question"
