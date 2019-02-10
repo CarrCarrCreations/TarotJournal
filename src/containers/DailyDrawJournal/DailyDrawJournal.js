@@ -180,6 +180,20 @@ class DailyDrawJournal extends Component {
     );
   };
 
+  handleEditorOnChange = value => {
+    this.setState(
+      prevState => ({
+        dailyDraw: {
+          ...prevState.dailyDraw,
+          journalEntry: JSON.stringify(value.toJSON())
+        }
+      }),
+      () => {
+        console.log("handle date change " + this.state.dailyDraw.journalEntry);
+      }
+    );
+  };
+
   render() {
     let tarotCard = null;
     if (this.state.dailyDraw.tarotCard !== "")
@@ -224,14 +238,7 @@ class DailyDrawJournal extends Component {
             changed={this.cardSelectedHandler}
             options={this.state.tarotCardOptions}
           />
-          {/* <Textarea
-            controlId="journalEntry"
-            label="Journal Entry"
-            as="textarea"
-            rows="3"
-            changed={this.inputHander}
-          /> */}
-          <TextEditor />
+          <TextEditor onChange={this.handleEditorOnChange} />
           <Button variant="primary" type="submit" className={styles.Button}>
             Submit
           </Button>

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { Editor } from "slate-react";
 import { Value } from "slate";
 
@@ -29,20 +29,18 @@ const initialValue = Value.fromJSON({
   }
 });
 
-class TextEditor extends Component {
-  state = {
-    value: initialValue,
-    editor: null
+const TextEditor = props => {
+  const [value, setValue] = useState(initialValue);
+  const [editor, setEditor] = useState(null);
+
+  const ref = editor => setEditor(editor);
+
+  const onChange = ({ value }) => {
+    setValue(value);
+    props.onChange(value);
   };
 
-  ref = editor => this.setState({ editor: editor });
-
-  onChange = ({ value }) => {
-    this.setState({ value });
-  };
-
-  onKeyDown = (e, editor) => {
-    console.log(editor);
+  const onKeyDown = (e, editor) => {
     if (e.ctrlKey) {
       e.preventDefault();
 
@@ -73,14 +71,13 @@ class TextEditor extends Component {
     }
   };
 
-  onMarkClick = (e, type) => {
+  const onMarkClick = (e, type) => {
     e.preventDefault();
-    const { editor } = this.state;
     const change = editor.toggleMark(type);
-    this.onChange(change);
+    onChange(change);
   };
 
-  renderMark = props => {
+  const renderMark = props => {
     switch (props.mark.type) {
       case "bold":
         return <BoldMark {...props} />;
@@ -89,36 +86,34 @@ class TextEditor extends Component {
     }
   };
 
-  render() {
-    return (
-      <div>
-        <FormatToolbar>
-          <button
-            type="button"
-            onPointerDown={e => this.onMarkClick(e, "bold")}
-            className={styles.tooltipIconButton}
-          >
-            <Icon icon={bold} />
-          </button>
-          <button
-            type="button"
-            onPointerDown={e => this.onMarkClick(e, "italic")}
-            className={styles.tooltipIconButton}
-          >
-            <Icon icon={italic} />
-          </button>
-        </FormatToolbar>
-        <Editor
-          ref={this.ref}
-          className={styles.App}
-          value={this.state.value}
-          onChange={this.onChange}
-          onKeyDown={this.onKeyDown}
-          renderMark={this.renderMark}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <FormatToolbar>
+        <button
+          type="button"
+          onPointerDown={e => onMarkClick(e, "bold")}
+          className={styles.tooltipIconButton}
+        >
+          <Icon icon={bold} />
+        </button>
+        <button
+          type="button"
+          onPointerDown={e => onMarkClick(e, "italic")}
+          className={styles.tooltipIconButton}
+        >
+          <Icon icon={italic} />
+        </button>
+      </FormatToolbar>
+      <Editor
+        ref={ref}
+        className={styles.App}
+        value={value}
+        onChange={onChange}
+        onKeyDown={onKeyDown}
+        renderMark={renderMark}
+      />
+    </div>
+  );
+};
 
 export default TextEditor;
