@@ -35,14 +35,13 @@ class TextEditor extends Component {
     editor: null
   };
 
+  ref = editor => this.setState({ editor: editor });
+
   onChange = ({ value }) => {
     this.setState({ value });
   };
 
-  onKeyDown = (e, editor, change) => {
-    this.setState({ editor: editor });
-    console.log(editor);
-
+  onKeyDown = (e, change) => {
     if (e.ctrlKey) {
       e.preventDefault();
 
@@ -84,8 +83,6 @@ class TextEditor extends Component {
         return <ItalicMark {...props} />;
     }
   };
-
-  ref = editor => (this.editor = editor);
 
   render() {
     return (
