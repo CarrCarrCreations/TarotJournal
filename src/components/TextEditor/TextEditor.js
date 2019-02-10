@@ -19,7 +19,7 @@ const initialValue = Value.fromJSON({
             object: "text",
             leaves: [
               {
-                text: "My first paragraph!"
+                text: ""
               }
             ]
           }
@@ -41,17 +41,18 @@ class TextEditor extends Component {
     this.setState({ value });
   };
 
-  onKeyDown = (e, change) => {
+  onKeyDown = (e, editor) => {
+    console.log(editor);
     if (e.ctrlKey) {
       e.preventDefault();
 
       switch (e.key) {
         case "b": {
-          change.toggleMark("bold");
+          editor.toggleMark("bold");
           return true;
         }
         case "i": {
-          change.toggleMark("italic");
+          editor.toggleMark("italic");
           return true;
         }
         case "delete": {
@@ -61,7 +62,11 @@ class TextEditor extends Component {
     } else {
       switch (e.key) {
         case "Backspace": {
-          change.deleteBackward();
+          editor.deleteBackward();
+          return true;
+        }
+        case "Enter": {
+          editor.insertBlock("paragraph");
           return true;
         }
       }
