@@ -11,6 +11,7 @@ import tarotDeck from "../../data/TarotDeck/tarotDeck.json";
 import moonPhaseData from "../../data/Moon/moonData2019.json";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import TextEditor from "../../components/TextEditor/TextEditor";
 
 class DailyDrawJournal extends Component {
   state = {
@@ -223,13 +224,14 @@ class DailyDrawJournal extends Component {
             changed={this.cardSelectedHandler}
             options={this.state.tarotCardOptions}
           />
-          <Textarea
+          {/* <Textarea
             controlId="journalEntry"
             label="Journal Entry"
             as="textarea"
             rows="3"
             changed={this.inputHander}
-          />
+          /> */}
+          <TextEditor />
           <Button variant="primary" type="submit" className={styles.Button}>
             Submit
           </Button>
