@@ -89,12 +89,14 @@ class TextEditor extends Component {
       <div>
         <FormatToolbar>
           <button
+            type="button"
             onPointerDown={e => this.onMarkClick(e, "bold")}
             className={styles.tooltipIconButton}
           >
             <Icon icon={bold} />
           </button>
           <button
+            type="button"
             onPointerDown={e => this.onMarkClick(e, "italic")}
             className={styles.tooltipIconButton}
           >
