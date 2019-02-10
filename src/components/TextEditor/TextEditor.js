@@ -56,8 +56,25 @@ const TextEditor = props => {
           editor.toggleMark("italic");
           return true;
         }
+        case "c": {
+          editor.toggleMark("code");
+          return true;
+        }
+
+        case "l": {
+          editor.toggleMark("list");
+          return true;
+        }
+
+        case "u": {
+          editor.toggleMark("underline");
+          return true;
+        }
         case "delete": {
           return true;
+        }
+        default: {
+          return;
         }
       }
     } else {
@@ -69,6 +86,9 @@ const TextEditor = props => {
         case "Enter": {
           editor.insertBlock("paragraph");
           return true;
+        }
+        default: {
+          return;
         }
       }
     }
@@ -96,6 +116,9 @@ const TextEditor = props => {
         );
       case "underline":
         return <u {...props.attributes}>{props.children}</u>;
+      default: {
+        return;
+      }
     }
   };
 
