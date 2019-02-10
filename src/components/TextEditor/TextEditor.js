@@ -7,6 +7,9 @@ import { BoldMark, ItalicMark, FormatToolbar } from "./index";
 import Icon from "react-icons-kit";
 import { bold } from "react-icons-kit/feather/bold";
 import { italic } from "react-icons-kit/feather/italic";
+import { code } from "react-icons-kit/feather/code";
+import { list } from "react-icons-kit/feather/list";
+import { underline } from "react-icons-kit/feather/underline";
 
 const initialValue = Value.fromJSON({
   document: {
@@ -83,6 +86,16 @@ const TextEditor = props => {
         return <BoldMark {...props} />;
       case "italic":
         return <ItalicMark {...props} />;
+      case "code":
+        return <code {...props.attributes}>{props.children}</code>;
+      case "list":
+        return (
+          <ul {...props.attributes}>
+            <li>{props.children}</li>
+          </ul>
+        );
+      case "underline":
+        return <u {...props.attributes}>{props.children}</u>;
     }
   };
 
@@ -102,6 +115,27 @@ const TextEditor = props => {
           className={styles.tooltipIconButton}
         >
           <Icon icon={italic} />
+        </button>
+        <button
+          type="button"
+          onPointerDown={e => onMarkClick(e, "code")}
+          className={styles.tooltipIconButton}
+        >
+          <Icon icon={code} />
+        </button>
+        <button
+          type="button"
+          onPointerDown={e => onMarkClick(e, "list")}
+          className={styles.tooltipIconButton}
+        >
+          <Icon icon={list} />
+        </button>
+        <button
+          type="button"
+          onPointerDown={e => onMarkClick(e, "underline")}
+          className={styles.tooltipIconButton}
+        >
+          <Icon icon={underline} />
         </button>
       </FormatToolbar>
       <Editor

@@ -3,7 +3,6 @@ import TarotCard from "../../components/TarotCard/TarotCard";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Input from "../../components/Form/Input/Input";
-import Textarea from "../../components/Form/Textarea/textarea";
 import styles from "./DailyDrawJournal.module.css";
 import SearchSelect from "../../components/Form/SearchSelect/SearchSelect";
 import Axios from "../../axios-dailyDraw";
