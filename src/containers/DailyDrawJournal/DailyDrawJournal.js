@@ -3,7 +3,6 @@ import TarotCard from "../../components/TarotCard/TarotCard";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Input from "../../components/Form/Input/Input";
-import Textarea from "../../components/Form/Textarea/textarea";
 import styles from "./DailyDrawJournal.module.css";
 import SearchSelect from "../../components/Form/SearchSelect/SearchSelect";
 import Axios from "../../axios-dailyDraw";
@@ -11,6 +10,7 @@ import tarotDeck from "../../data/TarotDeck/tarotDeck.json";
 import moonPhaseData from "../../data/Moon/moonData2019.json";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import TextEditor from "../../components/TextEditor/TextEditor";
 
 class DailyDrawJournal extends Component {
   state = {
@@ -179,6 +179,20 @@ class DailyDrawJournal extends Component {
     );
   };
 
+  handleEditorOnChange = value => {
+    this.setState(
+      prevState => ({
+        dailyDraw: {
+          ...prevState.dailyDraw,
+          journalEntry: JSON.stringify(value.toJSON())
+        }
+      }),
+      () => {
+        console.log("handle date change " + this.state.dailyDraw.journalEntry);
+      }
+    );
+  };
+
   render() {
     let tarotCard = null;
     if (this.state.dailyDraw.tarotCard !== "")
@@ -223,13 +237,7 @@ class DailyDrawJournal extends Component {
             changed={this.cardSelectedHandler}
             options={this.state.tarotCardOptions}
           />
-          <Textarea
-            controlId="journalEntry"
-            label="Journal Entry"
-            as="textarea"
-            rows="3"
-            changed={this.inputHander}
-          />
+          <TextEditor onChange={this.handleEditorOnChange} />
           <Button variant="primary" type="submit" className={styles.Button}>
             Submit
           </Button>
