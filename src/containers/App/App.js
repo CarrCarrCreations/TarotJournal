@@ -11,7 +11,6 @@ class App extends Component {
       <BrowserRouter>
         <div className={styles.App}>
           <Layout />
-          {/* <DailyDrawJournal /> */}
           <Dashboard />
         </div>
       </BrowserRouter>
