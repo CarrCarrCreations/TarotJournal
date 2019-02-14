@@ -16,13 +16,25 @@
   margin: 25px 0;
 }
 
+.Fields {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+}
+
+.Field {
+  display: flex;
+  align-self: flex-end;
+  margin: 10px 20px;
+}
+
 .TarotCard {
   margin: 10px 0;
 }
 
 .TextEditor {
   position: relative;
-  width: 45%;
+  width: 60%;
   height: 45%;
   margin-bottom: 10px;
 }

@@ -28,10 +28,12 @@ class DailyDrawJournalDisplay extends Component {
           <div key={id} className={styles.DailyDrawJournalDisplay}>
             <div className={styles.Container}>
               <div className={styles.TextEditor}>
-                <p>{reading.date}</p>
-                <p>{reading.moon}</p>
-                <p>{reading.numerology}</p>
-                <p>{reading.mood}</p>
+                <div className={styles.Fields}>
+                  <p className={styles.Field}>{reading.date.slice(0, 10)}</p>
+                  <p className={styles.Field}>{reading.moon}</p>
+                  <p className={styles.Field}>{reading.numerology}</p>
+                  <p className={styles.Field}>{reading.mood}</p>
+                </div>
                 <TextEditor
                   className={styles.TextEditor}
                   defaultValue={reading.journalEntry}
