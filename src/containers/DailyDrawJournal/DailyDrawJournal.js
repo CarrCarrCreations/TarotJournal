@@ -237,7 +237,7 @@ class DailyDrawJournal extends Component {
             changed={this.cardSelectedHandler}
             options={this.state.tarotCardOptions}
           />
-          <TextEditor onChange={this.handleEditorOnChange} />
+          <TextEditor show onChange={this.handleEditorOnChange} />
           <Button variant="primary" type="submit" className={styles.Button}>
             Submit
           </Button>

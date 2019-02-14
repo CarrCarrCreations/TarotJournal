@@ -126,45 +126,49 @@ const TextEditor = props => {
     }
   };
 
+  const toolbar = props.show ? (
+    <FormatToolbar className={styles.FormatToolbar}>
+      <button
+        type="button"
+        onPointerDown={e => onMarkClick(e, "bold")}
+        className={styles.tooltipIconButton}
+      >
+        <Icon icon={bold} />
+      </button>
+      <button
+        type="button"
+        onPointerDown={e => onMarkClick(e, "italic")}
+        className={styles.tooltipIconButton}
+      >
+        <Icon icon={italic} />
+      </button>
+      <button
+        type="button"
+        onPointerDown={e => onMarkClick(e, "code")}
+        className={styles.tooltipIconButton}
+      >
+        <Icon icon={code} />
+      </button>
+      <button
+        type="button"
+        onPointerDown={e => onMarkClick(e, "list")}
+        className={styles.tooltipIconButton}
+      >
+        <Icon icon={list} />
+      </button>
+      <button
+        type="button"
+        onPointerDown={e => onMarkClick(e, "underline")}
+        className={styles.tooltipIconButton}
+      >
+        <Icon icon={underline} />
+      </button>
+    </FormatToolbar>
+  ) : null;
+
   return (
     <div>
-      <FormatToolbar className={styles.FormatToolbar}>
-        <button
-          type="button"
-          onPointerDown={e => onMarkClick(e, "bold")}
-          className={styles.tooltipIconButton}
-        >
-          <Icon icon={bold} />
-        </button>
-        <button
-          type="button"
-          onPointerDown={e => onMarkClick(e, "italic")}
-          className={styles.tooltipIconButton}
-        >
-          <Icon icon={italic} />
-        </button>
-        <button
-          type="button"
-          onPointerDown={e => onMarkClick(e, "code")}
-          className={styles.tooltipIconButton}
-        >
-          <Icon icon={code} />
-        </button>
-        <button
-          type="button"
-          onPointerDown={e => onMarkClick(e, "list")}
-          className={styles.tooltipIconButton}
-        >
-          <Icon icon={list} />
-        </button>
-        <button
-          type="button"
-          onPointerDown={e => onMarkClick(e, "underline")}
-          className={styles.tooltipIconButton}
-        >
-          <Icon icon={underline} />
-        </button>
-      </FormatToolbar>
+      {toolbar}
       <Editor
         ref={ref}
         className={styles.Editor}
