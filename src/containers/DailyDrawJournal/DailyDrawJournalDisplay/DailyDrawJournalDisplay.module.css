@@ -18,14 +18,22 @@
 
 .Fields {
   display: flex;
-  flex-direction: column;
-  margin: 20px 0;
+  flex-direction: row;
+  margin-bottom: 20px;
+  justify-content: space-evenly;
+}
+
+.Label {
+  /* position: relative; */
+  display: flex;
+  margin: 0 10px;
+  justify-content: flex-start;
 }
 
 .Field {
   display: flex;
   align-self: flex-end;
-  margin: 10px 20px;
+  margin: 0 20px;
 }
 
 .TarotCard {

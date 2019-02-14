@@ -29,15 +29,24 @@ class DailyDrawJournalDisplay extends Component {
             <div className={styles.Container}>
               <div className={styles.TextEditor}>
                 <div className={styles.Fields}>
-                  <p className={styles.Field}>{reading.date.slice(0, 10)}</p>
-                  <p className={styles.Field}>{reading.moon}</p>
-                  <p className={styles.Field}>{reading.numerology}</p>
-                  <p className={styles.Field}>{reading.mood}</p>
+                  <div>
+                    <label className={styles.Label}>Date</label>
+                    <label className={styles.Label}>Moon</label>
+                    <label className={styles.Label}>numerology</label>
+                    <label className={styles.Label}>Mood</label>
+                  </div>
+                  <div>
+                    <p className={styles.Field}>{reading.date.slice(0, 10)}</p>
+                    <p className={styles.Field}>{reading.moon}</p>
+                    <p className={styles.Field}>{reading.numerology}</p>
+                    <p className={styles.Field}>{reading.mood}</p>
+                  </div>
                 </div>
+
                 <TextEditor
                   className={styles.TextEditor}
                   defaultValue={reading.journalEntry}
-                  readOnly="true"
+                  readOnly
                 />
               </div>
               <div className={styles.TarotCard}>
