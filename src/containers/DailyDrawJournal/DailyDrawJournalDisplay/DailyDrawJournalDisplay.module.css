@@ -1,0 +1,28 @@
+.DailyDrawJournalDisplay {
+  position: relative;
+  margin: auto;
+  text-align: center;
+  box-sizing: border-box;
+  width: 50%;
+  background-color: rgb(49, 176, 198, 0.1);
+  box-shadow: rgba(118, 143, 255, 0.3) 0px 16px 24px 0px;
+}
+
+.Container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+  margin: 25px 0;
+}
+
+.TarotCard {
+  margin: 10px 0;
+}
+
+.TextEditor {
+  position: relative;
+  width: 45%;
+  height: 45%;
+  margin-bottom: 10px;
+}

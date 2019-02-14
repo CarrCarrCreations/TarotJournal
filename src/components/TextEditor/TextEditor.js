@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Editor } from "slate-react";
 import { Value } from "slate";
 
@@ -33,7 +33,11 @@ const initialValue = Value.fromJSON({
 });
 
 const TextEditor = props => {
-  const [value, setValue] = useState(initialValue);
+  const [value, setValue] = useState(
+    props.defaultValue
+      ? Value.fromJSON(JSON.parse(props.defaultValue))
+      : initialValue
+  );
   const [editor, setEditor] = useState(null);
 
   const ref = editor => setEditor(editor);
@@ -124,7 +128,7 @@ const TextEditor = props => {
 
   return (
     <div>
-      <FormatToolbar>
+      <FormatToolbar className={styles.FormatToolbar}>
         <button
           type="button"
           onPointerDown={e => onMarkClick(e, "bold")}
@@ -163,11 +167,12 @@ const TextEditor = props => {
       </FormatToolbar>
       <Editor
         ref={ref}
-        className={styles.App}
+        className={styles.Editor}
         value={value}
         onChange={onChange}
         onKeyDown={onKeyDown}
         renderMark={renderMark}
+        readOnly={props.readOnly}
       />
     </div>
   );
